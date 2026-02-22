@@ -238,6 +238,68 @@ function copyXml(){
 
 document.getElementById('dMod').value=new Date().toISOString().split('T')[0];
 </script>
+<!-- Pro Features Section -->
+<style>
+.pro-section{max-width:1100px;margin:30px auto 0;padding:0 20px}
+.pro-header{text-align:center;margin-bottom:20px}
+.pro-header h2{font-size:1.3rem;color:var(--ac,#e94560)}
+.pro-header p{color:var(--t2,#aab);font-size:.9rem}
+.pro-blur-wrap{position:relative;border-radius:12px;overflow:hidden;cursor:pointer;border:1px solid var(--bd,#2a2a4e)}
+.pro-blur-content{filter:blur(6px);pointer-events:none;padding:24px;background:var(--cd,#1e1e3a);opacity:.7}
+.pro-blur-content .pro-mock-row{display:flex;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+.pro-blur-content .pro-mock-item{flex:1;min-width:140px;background:rgba(233,69,96,.08);border:1px solid rgba(233,69,96,.15);border-radius:8px;padding:14px;font-size:.85rem;color:var(--t2,#aab)}
+.pro-blur-content .pro-mock-item strong{display:block;color:var(--t,#eee);margin-bottom:4px}
+.pro-lock-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(26,26,46,.5);z-index:2}
+.pro-lock-overlay .lock-icon{font-size:2.5rem;margin-bottom:10px}
+.pro-lock-overlay .lock-text{font-size:1.1rem;font-weight:600;color:#fff}
+.pro-lock-overlay .lock-sub{font-size:.85rem;color:var(--t2,#aab);margin-top:4px}
+.pro-modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:9999;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.pro-modal-overlay.active{display:flex}
+.pro-modal{background:var(--cd,#1e1e3a);border:1px solid var(--bd,#2a2a4e);border-radius:16px;padding:36px;max-width:480px;width:90%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.pro-modal h3{font-size:1.4rem;margin-bottom:6px;color:#fff}
+.pro-modal .pro-price{font-size:2rem;font-weight:700;background:linear-gradient(135deg,var(--ac,#e94560),var(--ac2,#533483));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin:10px 0}
+.pro-modal ul{text-align:left;margin:20px 0;padding:0;list-style:none}
+.pro-modal ul li{padding:8px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:.9rem;color:var(--t2,#aab)}
+.pro-modal ul li::before{content:'✅ ';margin-right:6px}
+.pro-modal .btn-upgrade{display:inline-block;width:100%;padding:14px;background:linear-gradient(135deg,var(--ac,#e94560),var(--ac2,#533483));color:#fff;border:none;border-radius:10px;font-size:1.05rem;font-weight:700;cursor:pointer;text-decoration:none;transition:transform .2s,box-shadow .2s;margin-top:10px}
+.pro-modal .btn-upgrade:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(233,69,96,.4)}
+.pro-modal .btn-later{display:inline-block;margin-top:14px;background:none;border:none;color:var(--t2,#aab);cursor:pointer;font-size:.9rem;padding:8px 16px}
+.pro-modal .btn-later:hover{color:#fff}
+</style>
+<div class="pro-section">
+<div class="pro-header"><h2>🔒 Pro Features</h2><p>Unlock powerful sitemap automation</p></div>
+<div class="pro-blur-wrap" onclick="document.getElementById('proModal').classList.add('active')">
+<div class="pro-blur-content">
+<div class="pro-mock-row">
+<div class="pro-mock-item"><strong>🕷️ Auto Crawl</strong>Automatically crawl your entire website and discover all pages, images & links</div>
+<div class="pro-mock-item"><strong>⏰ Scheduled Updates</strong>Set up daily/weekly auto-regeneration and submit to Google & Bing automatically</div>
+</div>
+<div class="pro-mock-row">
+<div class="pro-mock-item"><strong>🌐 Multi-Site Manager</strong>Manage sitemaps for multiple domains from a single dashboard</div>
+<div class="pro-mock-item"><strong>📊 SEO Analytics</strong>Track indexing status, crawl errors & sitemap health scores</div>
+</div>
+</div>
+<div class="pro-lock-overlay"><div class="lock-icon">🔒</div><div class="lock-text">Pro Features Locked</div><div class="lock-sub">Click to unlock — $14 one-time</div></div>
+</div>
+</div>
+<div class="pro-modal-overlay" id="proModal">
+<div class="pro-modal">
+<h3>⚡ Upgrade to Pro</h3>
+<div class="pro-price">$14</div>
+<p style="color:var(--t2,#aab);font-size:.9rem">One-time payment · Lifetime access</p>
+<ul>
+<li>Full website auto-crawl (up to 10,000 pages)</li>
+<li>Scheduled daily/weekly sitemap regeneration</li>
+<li>Auto-submit to Google Search Console & Bing</li>
+<li>Multi-site management dashboard</li>
+<li>Image & video sitemap support</li>
+<li>SEO health score & crawl error reports</li>
+</ul>
+<a href="https://feifeicch.gumroad.com/l/ai-sitemap-generator-pro" target="_blank" class="btn-upgrade">Upgrade to Pro — $14</a>
+<button class="btn-later" onclick="event.stopPropagation();document.getElementById('proModal').classList.remove('active')">Maybe later</button>
+</div>
+</div>
+<script>document.getElementById('proModal').addEventListener('click',function(e){if(e.target===this)this.classList.remove('active')});</script>
 <script src="https://cdn.partytown.qwik.dev/monetize.js" defer></script>
 </body>
 </html>
