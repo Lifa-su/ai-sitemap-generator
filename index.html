@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Sitemap Generator - Create XML Sitemaps Instantly</title>
+<meta name="description" content="Free online AI Sitemap Generator. Paste URLs, customize priority and frequency, preview and download valid XML sitemaps.">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0f1117;--sf:#1a1d27;--sf2:#242836;--bd:#2e3348;--tx:#e4e6f0;--tx2:#9498b0;--ac:#6c63ff;--ac2:#8b83ff;--gn:#4ade80;--rd:#f87171}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;display:flex;flex-direction:column}
+header{text-align:center;padding:2.5rem 1rem 1.5rem;background:linear-gradient(135deg,#1a1d27,#242836);border-bottom:1px solid var(--bd)}
+header h1{font-size:1.8rem;background:linear-gradient(135deg,var(--ac),var(--ac2),var(--gn));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+header p{color:var(--tx2);margin-top:.4rem;font-size:.95rem}
+.container{max-width:1100px;margin:0 auto;padding:1.5rem 1rem;flex:1;width:100%}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+@media(max-width:768px){.grid{grid-template-columns:1fr}}
+.card{background:var(--sf);border:1px solid var(--bd);border-radius:12px;padding:1.5rem}
+.card h2{font-size:1.1rem;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
+textarea{width:100%;min-height:180px;background:var(--sf2);border:1px solid var(--bd);border-radius:8px;padding:.75rem;color:var(--tx);font-family:'SF Mono',Monaco,Consolas,monospace;font-size:.85rem;resize:vertical;outline:none;transition:border-color .2s}
+textarea:focus{border-color:var(--ac)}
+.srow{display:flex;gap:.75rem;margin-top:1rem;flex-wrap:wrap}
+.srow label{display:flex;flex-direction:column;gap:.3rem;font-size:.8rem;color:var(--tx2);flex:1;min-width:120px}
+.srow select,.srow input{background:var(--sf2);border:1px solid var(--bd);border-radius:6px;padding:.5rem;color:var(--tx);font-size:.85rem;outline:none}
+.btn-row{display:flex;gap:.75rem;margin-top:1rem;flex-wrap:wrap}
+button{padding:.6rem 1.2rem;border-radius:8px;border:none;font-size:.85rem;font-weight:600;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:.4rem}
+button:active{transform:scale(.97)}
+.bp{background:var(--ac);color:#fff}.bp:hover{background:var(--ac2)}
+.bs{background:#059669;color:#fff}.bs:hover{background:#047857}
+.bo{background:transparent;border:1px solid var(--bd);color:var(--tx)}.bo:hover{border-color:var(--ac);color:var(--ac)}
+.bd{background:transparent;border:1px solid var(--rd);color:var(--rd)}.bd:hover{background:var(--rd);color:#fff}
+#xmlPre{width:100%;min-height:300px;background:var(--bg);border:1px solid var(--bd);border-radius:8px;padding:.75rem;color:var(--gn);font-family:'SF Mono',Monaco,Consolas,monospace;font-size:.78rem;resize:vertical;white-space:pre;overflow:auto}
+.utbl{width:100%;border-collapse:collapse;margin-top:.75rem;font-size:.82rem}
+.utbl th{text-align:left;padding:.5rem;color:var(--tx2);border-bottom:1px solid var(--bd);font-weight:500;font-size:.75rem;text-transform:uppercase;letter-spacing:.5px}
+.utbl td{padding:.4rem .5rem;border-bottom:1px solid var(--bd)}
+.utbl td input,.utbl td select{width:100%;background:var(--sf2);border:1px solid var(--bd);border-radius:4px;padding:.3rem;color:var(--tx);font-size:.8rem}
+.utbl tr:hover{background:var(--sf2)}
+.utext{max-width:260px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--ac);font-size:.8rem}
+.rbtn{background:none;border:none;color:var(--rd);cursor:pointer;padding:.2rem;font-size:1rem;opacity:.6}.rbtn:hover{opacity:1}
+.sts{padding:.5rem .75rem;border-radius:6px;font-size:.82rem;margin-top:.75rem;display:none}
+.sts.ok{display:block;background:rgba(74,222,128,.1);border:1px solid rgba(74,222,128,.3);color:var(--gn)}
+.sts.err{display:block;background:rgba(248,113,113,.1);border:1px solid rgba(248,113,113,.3);color:var(--rd)}
+.stats{display:flex;gap:1.5rem;margin-bottom:1rem;flex-wrap:wrap}
+.stat{background:var(--sf2);padding:.6rem 1rem;border-radius:8px;font-size:.8rem;color:var(--tx2)}
+.stat strong{color:var(--tx);font-size:1rem;margin-right:.3rem}
+footer{text-align:center;padding:1.5rem;color:var(--tx2);font-size:.8rem;border-top:1px solid var(--bd);margin-top:2rem}
+</style>
+</head>
+<body>
+<header>
+<h1>&#x1F5FA;&#xFE0F; AI Sitemap Generator</h1>
+<p>Paste your URLs, customize settings, and generate valid XML sitemaps instantly</p>
+</header>
+<div class="container">
+<div class="grid">
+<div>
+<div class="card" style="margin-bottom:1.5rem">
+<h2><span>&#x1F4DD;</span> Enter URLs</h2>
+<textarea id="urlInput" placeholder="Paste URLs here, one per line...&#10;&#10;https://example.com&#10;https://example.com/about&#10;https://example.com/blog"></textarea>
+<div class="srow">
+<label>Default Priority
+<select id="defPri"><option value="1.0">1.0</option><option value="0.9">0.9</option><option value="0.8" selected>0.8</option><option value="0.7">0.7</option><option value="0.6">0.6</option><option value="0.5">0.5</option><option value="0.4">0.4</option><option value="0.3">0.3</option><option value="0.2">0.2</option><option value="0.1">0.1</option><option value="0.0">0.0</option></select>
+</label>
+<label>Default Frequency
+<select id="defFreq"><option value="daily" selected>daily</option><option value="always">always</option><option value="hourly">hourly</option><option value="weekly">weekly</option><option value="monthly">monthly</option><option value="yearly">yearly</option><option value="never">never</option></select>
+</label>
+<label>Last Modified
+<input type="date" id="defDate">
+</label>
+</div>
+<div class="btn-row">
+<button class="bp" onclick="parseURLs()">&#x2699;&#xFE0F; Generate Sitemap</button>
+<button class="bo" onclick="clearAll()">&#x1F5D1;&#xFE0F; Clear All</button>
+</div>
+</div>
+<div class="card">
+<h2><span>&#x1F4CB;</span> URL List <span id="urlCount" style="font-size:.8rem;color:var(--tx2);font-weight:400;margin-left:auto">0 URLs</span></h2>
+<div id="urlList"><div style="text-align:center;padding:2rem;color:var(--tx2)">No URLs added yet. Paste URLs above and click Generate.</div></div>
+</div>
+</div>
+<div>
+<div class="card" style="margin-bottom:1.5rem">
+<h2><span>&#x1F4C4;</span> XML Preview</h2>
+<div class="stats">
+<div class="stat"><strong id="statUrls">0</strong>URLs</div>
+<div class="stat"><strong id="statSize">0</strong>bytes</div>
+</div>
+<div id="xmlPre">XML preview will appear here after generating...</div>
+<div id="statusMsg" class="sts"></div>
+<div class="btn-row">
+<button class="bs" onclick="downloadXML()">&#x2B07;&#xFE0F; Download XML</button>
+<button class="bo" onclick="validateXML()">&#x2705; Validate XML</button>
+<button class="bo" onclick="copyXML()">&#x1F4CB; Copy XML</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<p>AI Sitemap Generator &mdash; Free, fast, and open source. No data is sent to any server.</p>
+</footer>
+<script>
+let urls=[];
+function escXml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&apos;');}
+function isValidUrl(s){try{const u=new URL(s);return['http:','https:'].includes(u.protocol)}catch{return false}}
+function today(){return new Date().toISOString().split('T')[0]}
+document.getElementById('defDate').value=today();
+
+function parseURLs(){
+  const input=document.getElementById('urlInput').value.trim();
+  if(!input){showStatus('Please enter at least one URL.','err');return}
+  const lines=input.split('\n').map(l=>l.trim()).filter(l=>l.length>0);
+  const defPri=document.getElementById('defPri').value;
+  const defFreq=document.getElementById('defFreq').value;
+  const defDate=document.getElementById('defDate').value||today();
+  let invalid=[];
+  urls=[];
+  lines.forEach(line=>{
+    if(isValidUrl(line)){urls.push({loc:line,priority:defPri,changefreq:defFreq,lastmod:defDate})}
+    else{invalid.push(line)}
+  });
+  if(invalid.length>0){showStatus('Skipped '+invalid.length+' invalid URL(s): '+invalid.slice(0,3).join(', ')+(invalid.length>3?' ...':''),'err')}
+  else{showStatus(urls.length+' URL(s) parsed successfully!','ok')}
+  renderTable();
+  generateXML();
+}
+
+function renderTable(){
+  const c=document.getElementById('urlList');
+  const cnt=document.getElementById('urlCount');
+  cnt.textContent=urls.length+' URLs';
+  if(urls.length===0){c.innerHTML='<div style="text-align:center;padding:2rem;color:var(--tx2)">No URLs added yet.</div>';return}
+  let h='<table class="utbl"><thead><tr><th>URL</th><th style="width:70px">Priority</th><th style="width:90px">Frequency</th><th style="width:120px">Last Modified</th><th style="width:30px"></th></tr></thead><tbody>';
+  const freqs=['always','hourly','daily','weekly','monthly','yearly','never'];
+  const pris=['1.0','0.9','0.8','0.7','0.6','0.5','0.4','0.3','0.2','0.1','0.0'];
+  urls.forEach((u,i)=>{
+    h+='<tr><td><div class="utext" title="'+escXml(u.loc)+'">'+escXml(u.loc)+'</div></td>';
+    h+='<td><select onchange="updUrl('+i+',\'priority\',this.value)">';
+    pris.forEach(p=>{h+='<option value="'+p+'"'+(u.priority===p?' selected':'')+'>'+p+'</option>'});
+    h+='</select></td><td><select onchange="updUrl('+i+',\'changefreq\',this.value)">';
+    freqs.forEach(f=>{h+='<option value="'+f+'"'+(u.changefreq===f?' selected':'')+'>'+f+'</option>'});
+    h+='</select></td><td><input type="date" value="'+u.lastmod+'" onchange="updUrl('+i+',\'lastmod\',this.value)"></td>';
+    h+='<td><button class="rbtn" onclick="removeUrl('+i+')" title="Remove">&times;</button></td></tr>';
+  });
+  h+='</tbody></table>';
+  c.innerHTML=h;
+}
+
+function updUrl(i,k,v){urls[i][k]=v;generateXML()}
+function removeUrl(i){urls.splice(i,1);renderTable();generateXML()}
+
+function generateXML(){
+  if(urls.length===0){document.getElementById('xmlPre').textContent='XML preview will appear here after generating...';document.getElementById('statUrls').textContent='0';document.getElementById('statSize').textContent='0';return}
+  let xml='<?xml version="1.0" encoding="UTF-8"?>\n';
+  xml+='<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
+  urls.forEach(u=>{
+    xml+='  <url>\n';
+    xml+='    <loc>'+escXml(u.loc)+'</loc>\n';
+    if(u.lastmod)xml+='    <lastmod>'+escXml(u.lastmod)+'</lastmod>\n';
+    xml+='    <changefreq>'+escXml(u.changefreq)+'</changefreq>\n';
+    xml+='    <priority>'+escXml(u.priority)+'</priority>\n';
+    xml+='  </url>\n';
+  });
+  xml+='</urlset>';
+  document.getElementById('xmlPre').textContent=xml;
+  document.getElementById('statUrls').textContent=urls.length;
+  document.getElementById('statSize').textContent=new Blob([xml]).size;
+}
+
+function downloadXML(){
+  if(urls.length===0){showStatus('No URLs to download. Generate a sitemap first.','err');return}
+  const xml=document.getElementById('xmlPre').textContent;
+  const blob=new Blob([xml],{type:'application/xml'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);a.download='sitemap.xml';a.click();
+  URL.revokeObjectURL(a.href);
+  showStatus('sitemap.xml downloaded!','ok');
+}
+
+function validateXML(){
+  if(urls.length===0){showStatus('No XML to validate. Generate a sitemap first.','err');return}
+  const xml=document.getElementById('xmlPre').textContent;
+  const parser=new DOMParser();
+  const doc=parser.parseFromString(xml,'application/xml');
+  const err=doc.querySelector('parsererror');
+  if(err){showStatus('XML Validation Failed: '+err.textContent.substring(0,200),'err')}
+  else{
+    const urlEls=doc.querySelectorAll('url');
+    let issues=[];
+    urlEls.forEach((u,i)=>{
+      const loc=u.querySelector('loc');
+      if(!loc||!loc.textContent.trim())issues.push('URL #'+(i+1)+': missing <loc>');
+      const pri=u.querySelector('priority');
+      if(pri){const v=parseFloat(pri.textContent);if(isNaN(v)||v<0||v>1)issues.push('URL #'+(i+1)+': invalid priority')}
+    });
+    if(issues.length>0){showStatus('Validation warnings: '+issues.join('; '),'err')}
+    else{showStatus('XML is valid! '+urlEls.length+' URL(s) found, all entries are well-formed.','ok')}
+  }
+}
+
+function copyXML(){
+  if(urls.length===0){showStatus('No XML to copy.','err');return}
+  navigator.clipboard.writeText(document.getElementById('xmlPre').textContent).then(()=>showStatus('XML copied to clipboard!','ok')).catch(()=>showStatus('Failed to copy.','err'));
+}
+
+function clearAll(){urls=[];document.getElementById('urlInput').value='';renderTable();generateXML();document.getElementById('statusMsg').className='sts';document.getElementById('statusMsg').style.display='none'}
+
+function showStatus(msg,type){const el=document.getElementById('statusMsg');el.textContent=msg;el.className='sts '+type;el.style.display='block';setTimeout(()=>{el.style.display='none'},5000)}
+</script>
+<script src="https://alwingulla.com/88/tag.min.js" data-zone="130747" async data-cfasync="false"></script>
+</body>
+</html>
